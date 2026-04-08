@@ -4,7 +4,6 @@ import Navbar from "../Navbar/Navbar";
 function Header() {
   return (
     <header>
-      <h1>UdeSA Movies</h1>
       <Navbar />
     </header>
   );

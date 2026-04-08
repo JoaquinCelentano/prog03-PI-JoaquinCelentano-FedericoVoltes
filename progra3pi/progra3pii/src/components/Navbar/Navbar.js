@@ -3,6 +3,8 @@ import React from "react";
 function Navbar() {
   return (
      <nav>
+            <h2>JoacoFede Movies</h2>
+
             <ul class="nav nav-tabs my-4">
                 <li class="nav-item">
                     <a class="nav-link" href="index.html">Home</a>
