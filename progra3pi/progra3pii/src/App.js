@@ -9,6 +9,7 @@ import Series from "./components/Series/Series";
 import Favorites from "./components/Favorites/Favorites";
 import Login from './components/Login/Login';
 import Register from './components/Register/Register';
+import Detalle from './components/Detalle/Detalle';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
     <Route path="/favorites" component={Favorites} />
     <Route path="/login" component={Login} />
     <Route path="/register" component={Register} />
+    <Route path="/detalle/:tipo/:id" component={Detalle} />
   </Switch>
 
   <Footer />

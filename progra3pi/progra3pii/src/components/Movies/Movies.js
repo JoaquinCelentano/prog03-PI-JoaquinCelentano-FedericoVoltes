@@ -38,7 +38,6 @@ class Movies extends Component {
 
   render(){
     return(
-
          
   <div className="container">
 
@@ -48,7 +47,7 @@ class Movies extends Component {
     <section className="row cards">
 
       {this.state.movies.map((movie, i) => (
-        <MovieCard key={movie.title + i} data={movie} />
+        <MovieCard key={movie.title + i} data={movie} tipo="movie" />
       ))}
 
     </section>
