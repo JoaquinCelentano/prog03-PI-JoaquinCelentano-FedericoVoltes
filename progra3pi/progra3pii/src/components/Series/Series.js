@@ -13,7 +13,6 @@ function Series() {
     </div>
   </div>
 
-      <button className="btn btn-warning">Cargar más</button>
 
       <section className="row cards all-series" id="series">
 
@@ -79,6 +78,7 @@ function Series() {
         </article>
 
       </section>
+      <button className="btn btn-warning">Cargar más</button>
 
     </div>
   );
