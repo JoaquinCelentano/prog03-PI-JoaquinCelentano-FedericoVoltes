@@ -1,31 +1,51 @@
 import { Link } from "react-router-dom";
+import React, { Component } from "react";
 
-function MovieCard(props) {
+class MovieCard extends Component{
+
+  constructor (props) {
+    super(props);
+    this.state = {
+      mostrarDescripcion: false
+    }
+  }
+  botonVerMas() {
+    this.setState({
+      mostrarDescripcion: !this.state.mostrarDescripcion
+    })
+  }
+
+  render(){
   return (
     <article className="single-card-movie">
 
       <img
-        src={"https://image.tmdb.org/t/p/w500" + props.data.poster_path}
+        src={"https://image.tmdb.org/t/p/w500" + this.props.data.poster_path}
         className="card-img-top"
-        alt={props.data.title ? props.data.title : props.data.name}
+        alt={this.props.data.title ? this.props.data.title : this.props.data.name}
       />
 
       <div className="cardBody">
-        <h5 className="card-title">{props.data.title ? props.data.title : props.data.name}</h5>
+        <h5 className="card-title">{this.props.data.title ? this.props.data.title : this.props.data.name}</h5>
 
-        <p className="card-text">
-          {props.data.overview}
-        </p>
+{
+  this.state.mostrarDescripcion && (
+    <p className="card-text">
+      {this.props.data.overview}
+    </p>
+  )
+}
 
-        <a href="#" className="btn btn-primary">Ver más</a>
+        <button onClick={() => this.botonVerMas()} className="btn btn-primary">{this.state.mostrarDescripcion ? "Ver menos" : "Ver más"}</button>
           <Link 
-          to={`/detalle/${props.tipo}/${props.data.id}`} 
+          to={`/detalle/${this.props.tipo}/${this.props.data.id}`} 
           className="btn btn-primary">Ver detalle</Link>
 
       </div>
 
     </article>
-  );
+  )
+}
 }
 
 export default MovieCard;
