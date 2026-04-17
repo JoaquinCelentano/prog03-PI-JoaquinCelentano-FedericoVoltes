@@ -1,43 +1,49 @@
-import React from "react";
-import { Component } from "react";
+import React, { Component } from "react";
 
 class Register extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: "",
-            password: "",
-            userName: "",
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: "",
+      password: "",
+      userName: "",
+      error: ""
+    };
+  }
 
-onSubmit = (e) => {
+  controlarCambio = (e, campo) => {
+    this.setState({
+      [campo]: e.target.value
+    });
+  };
+
+  onSubmit = (e) => {
     e.preventDefault();
 
-let usuarioACrear = {
-    email: this.state.email,
-    password: this.state.password,
-    userName: this.state.userName,
-    createdAt: new Date(),
-}
+    let usuarioACrear = {
+      username: this.state.userName,
+      email: this.state.email,
+      password: this.state.password,
+      createdAt: Date.now()
+    };
 
     if (this.state.userName.length < 3 || this.state.userName.length > 7) {
       this.setState({
-        error: "El nombre de usuario debe tener entre 3 y 7 caracteres"
+        error: "La extensión del username debe ser de 3 a 7 caracteres"
       });
       return;
     }
 
     if (!this.state.email.includes("@")) {
       this.setState({
-        error: "El email debe ser válido"
+        error: "Email mal formateado"
       });
       return;
     }
 
     if (this.state.password.length < 5 || this.state.password.length > 12) {
       this.setState({
-        error: "La extensión de la contraseña debe ser de 5 a 12 caracteres"
+        error: "La extensión del password debe ser de 5 a 12 caracteres"
       });
       return;
     }
@@ -65,53 +71,56 @@ let usuarioACrear = {
       }
     } else {
       let usersInicial = [usuarioACrear];
-
       let usersEnJson = JSON.stringify(usersInicial);
 
       localStorage.setItem("users", usersEnJson);
     }
 
-    localStorage.setItem("user", JSON.stringify({
-        email: this.state.email,
-        password: this.state.password
-    }));
+    document.cookie = "userLogged=true; path=/";
 
-}
+    this.setState({ error: "" });
+    this.props.history.push("/login");
+  };
 
-controlarCambio = (e,campo) => {
-    this.setState({
-        [campo]: e.target.value
-    })
-}
+  render() {
+    return (
+      <div className="container">
 
-    render() {
-        return (
-            <div class="container">
-                <h2 class="alert alert-primary">Registro</h2>
+        <h2 className="alert alert-primary">Registro</h2>
 
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <form>
-                    <div class="form-group">
-                        <label for="email">Nombre de usuario</label>
-                        <input onChange={(e)=> this.controlarCambio(e,"userName")} type="text" class="form-control" id="userName" placeholder="Ingresá tu nombre de usuario"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input onChange={(e)=> this.controlarCambio(e,"email")} type="email" class="form-control" id="email" placeholder="Ingresá tu email"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Contraseña</label>
-                        <input onChange={(e)=> this.controlarCambio(e,"password")} type="password" class="form-control" id="password" placeholder="Ingresá tu contraseña"/>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
-                </form>
-                <p class="mt-3 text-center">¿Ya tenés cuenta? <a href="login.html">Iniciar sesión</a></p>
-            </div>
+        <div className="row justify-content-center">
+          <div className="col-md-6">
+            {this.state.error && (
+              <p style={{ color: "red" }}>{this.state.error}</p>
+            )}
+
+            <form onSubmit={this.onSubmit}>
+              <div className="form-group">
+                <label htmlFor="userName">Nombre de usuario</label>
+                <input onChange={(e) => this.controlarCambio(e, "userName")} type="text" className="form-control" id="userName" placeholder="Ingresá tu nombre de usuario"/>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input onChange={(e) => this.controlarCambio(e, "email")} type="email" className="form-control" id="email" placeholder="Ingresá tu email"/>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="password">Contraseña</label>
+                <input onChange={(e) => this.controlarCambio(e, "password")}type="password" className="form-control" id="password" placeholder="Ingresá tu contraseña"/>
+              </div>
+
+              <button type="submit" className="btn btn-primary btn-block">Registrarse</button>
+            </form>
+
+            <p className="mt-3 text-center"><a href="/login">Iniciar sesión</a></p>
+
+          </div>
         </div>
-    </div>
+
+      </div>
     );
-}
+  }
 }
 
 export default Register;
