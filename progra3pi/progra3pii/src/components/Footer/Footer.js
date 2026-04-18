@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <footer className ="footer">
-      <p>Joaquin Celentano - Federico Voltes</p>
+      <p>Joaquin Celentano, Federico Voltes, Francesco Scaglioni</p>
     </footer>
   );
 }
