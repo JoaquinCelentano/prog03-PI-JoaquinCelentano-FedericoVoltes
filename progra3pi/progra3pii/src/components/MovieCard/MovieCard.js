@@ -97,7 +97,7 @@ class MovieCard extends Component{
 
           { cookies.get("userLogged") ? (
   <button 
-    onClick={() => this.toggleFavorito()} 
+    onClick={() => this.ponerFavorito()} 
     className="btn btn-primary">
     {this.state.esFavorito ? "Sacar de favoritos" : "Agregar a favoritos"}
   </button>
