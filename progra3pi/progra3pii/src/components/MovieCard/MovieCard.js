@@ -99,7 +99,7 @@ class MovieCard extends Component{
   <button 
     onClick={() => this.toggleFavorito()} 
     className="btn btn-primary">
-    {this.state.esFavorito ? "Quitar de favoritos" : "Agregar a favoritos"}
+    {this.state.esFavorito ? "Sacar de favoritos" : "Agregar a favoritos"}
   </button>
 ) : null }
 
