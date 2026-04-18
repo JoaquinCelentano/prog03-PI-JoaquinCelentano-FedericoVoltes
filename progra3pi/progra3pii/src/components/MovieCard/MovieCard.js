@@ -31,7 +31,7 @@ class MovieCard extends Component{
     }
   }
 
-  toggleFavorito() {
+  ponerFavorito() {
     let favoritosStorage = localStorage.getItem("favoritos");
     let favoritosParseado;
     if (favoritosStorage === null) {
