@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import Cookies from "universal-cookie";
 
 
-const cookies = newCookies()
+const cookies = new Cookies()
 
 
 class MovieCard extends Component{
@@ -11,9 +11,58 @@ class MovieCard extends Component{
   constructor (props) {
     super(props);
     this.state = {
-      mostrarDescripcion: false
+      mostrarDescripcion: false,
+      esFavorito: false
     }
   }
+  componentDidMount() {
+    let favoritosStorage = localStorage.getItem("favoritos");
+    if (favoritosStorage === null) return;
+    let favoritosParseado = JSON.parse(favoritosStorage);
+    let array;
+    if (this.props.tipo === "movie") {
+      array = favoritosParseado.movies;
+    } else {
+      array = favoritosParseado.series;
+    }
+    let coincidencias = array.filter(item => item.id === this.props.data.id);
+    if (coincidencias.length > 0) {
+      this.setState({ esFavorito: true });
+    }
+  }
+
+  ponerFavorito() {
+    let favoritosStorage = localStorage.getItem("favoritos");
+    let favoritosParseado;
+    if (favoritosStorage === null) {
+      favoritosParseado = { movies: [], series: [] };
+    } else {
+      favoritosParseado = JSON.parse(favoritosStorage);
+    }
+    let array;
+    if (this.props.tipo === "movie") {
+      array = favoritosParseado.movies;
+    } else {
+      array = favoritosParseado.series;
+    }
+    let yaEsta = array.filter(item => item.id === this.props.data.id).length > 0;
+    if (yaEsta) {
+      if (this.props.tipo === "movie") {
+        favoritosParseado.movies = array.filter(item => item.id !== this.props.data.id);
+      } else {
+        favoritosParseado.series = array.filter(item => item.id !== this.props.data.id);
+      }
+    } else {
+      if (this.props.tipo === "movie") {
+        favoritosParseado.movies.push(this.props.data);
+      } else {
+        favoritosParseado.series.push(this.props.data);
+      }
+    }
+    localStorage.setItem("favoritos", JSON.stringify(favoritosParseado));
+    this.setState({ esFavorito: !this.state.esFavorito });
+  }
+
   botonVerMas() {
     this.setState({
       mostrarDescripcion: !this.state.mostrarDescripcion
@@ -45,6 +94,14 @@ class MovieCard extends Component{
           <Link 
           to={`/detalle/${this.props.tipo}/${this.props.data.id}`} 
           className="btn btn-primary">Ver detalle</Link>
+
+          { cookies.get("userLogged") ? (
+  <button 
+    onClick={() => this.toggleFavorito()} 
+    className="btn btn-primary">
+    {this.state.esFavorito ? "Sacar de favoritos" : "Agregar a favoritos"}
+  </button>
+) : null }
 
       </div>
 
