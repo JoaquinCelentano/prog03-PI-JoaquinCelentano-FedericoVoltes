@@ -9,7 +9,8 @@ class Series extends Component {
     super(props);
     this.state = {
       series: [],
-      pagina: 1
+      pagina: 1,
+      Cargando: true   // 🔥 agregado
     };
   }
 
@@ -19,7 +20,8 @@ class Series extends Component {
       .then(data => {
         this.setState({
           series: data.results,
-          pagina: this.state.pagina + 1
+          pagina: this.state.pagina + 1,
+          Cargando: false   
         });
       })
       .catch(err => console.log(err));
@@ -47,9 +49,17 @@ class Series extends Component {
 
         <section className="row cards all-series" id="series">
 
-          {this.state.series.map((serie, i) => (
-            <MovieCard key={serie.name + i} data={serie} tipo="tv" />
-          ))}
+          {this.state.Cargando ? (
+
+            <p className="alert alert-info">Cargando...</p>
+
+          ) : (
+
+            this.state.series.map((serie, i) => (
+              <MovieCard key={serie.id} data={serie} tipo="tv" />
+            ))
+
+          )}
 
         </section>
 

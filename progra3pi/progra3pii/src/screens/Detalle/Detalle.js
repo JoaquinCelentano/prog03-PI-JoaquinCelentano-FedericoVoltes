@@ -9,7 +9,8 @@ class Detalle extends Component {
         super(props);
         this.state = {
             detalle : null,
-            esFavorito: false
+            esFavorito: false,
+            Cargando: true
         };
     };
 
@@ -19,7 +20,7 @@ componentDidMount() {
     fetch(`https://api.themoviedb.org/3/${tipo}/${id}?api_key=${apiKey}`)
       .then((res) => res.json())
       .then((data) => {
-        this.setState({ detalle: data });
+        this.setState({ detalle: data, Cargando: false });
         let favoritosStorage = localStorage.getItem("favoritos");
         if (favoritosStorage === null) return;
         let favoritosParseado = JSON.parse(favoritosStorage);
@@ -73,83 +74,92 @@ render() {
   return (
     <div className="container">
 
-      {this.state.detalle && (
+      {this.state.Cargando ? (
 
-        <React.Fragment>
-          <h2 className="alert alert-warning">
-            {this.state.detalle.title ? this.state.detalle.title : this.state.detalle.name}
-          </h2>
+        <p className="alert alert-info">Cargando...</p>
 
-          <section className="row">
+      ) : (
+      
 
-            <section className="col-md-6 info">
+        this.state.detalle && (
 
-              <h3>Descripción</h3>
+          <React.Fragment>
 
-              <p className="description">
-                {this.state.detalle.overview}
-              </p>
+            <h2 className="alert alert-warning">
+              {this.state.detalle.title ? this.state.detalle.title : this.state.detalle.name}
+            </h2>
 
-              <p className="mt-0 mb-0">
-                <strong>Calificación:</strong> {this.state.detalle.vote_average}
-              </p>
+            <section className="row">
 
-              <p className="mt-0 mb-0" id="release-date">
-                <strong>Fecha de estreno:</strong>{" "}
-                {this.state.detalle.release_date
-                  ? this.state.detalle.release_date
-                  : this.state.detalle.first_air_date}
-              </p>
+              <section className="col-md-6 info">
 
-              {this.props.match.params.tipo === "movie" ? (
-                <p className="mt-0 mb-0">
-                  <strong>Duración:</strong> {this.state.detalle.runtime} minutos
+                <h3>Descripción</h3>
+
+                <p className="description">
+                  {this.state.detalle.overview}
                 </p>
-              ) : null}
 
-              {this.props.match.params.tipo !== "movie" && (
-                <React.Fragment>
-                  <p className="mt-0 mb-0" id="episodes">
-                    <strong>Número de capítulos:</strong>{" "}
-                    {this.state.detalle.number_of_episodes}
+                <p className="mt-0 mb-0">
+                  <strong>Calificación:</strong> {this.state.detalle.vote_average}
+                </p>
+
+                <p className="mt-0 mb-0" id="release-date">
+                  <strong>Fecha de estreno:</strong>{" "}
+                  {this.state.detalle.release_date
+                    ? this.state.detalle.release_date
+                    : this.state.detalle.first_air_date}
+                </p>
+
+                {this.props.match.params.tipo === "movie" ? (
+                  <p className="mt-0 mb-0">
+                    <strong>Duración:</strong> {this.state.detalle.runtime} minutos
                   </p>
+                ) : (
+                  <React.Fragment>
+                    <p className="mt-0 mb-0">
+                      <strong>Capítulos:</strong> {this.state.detalle.number_of_episodes}
+                    </p>
+                    <p className="mt-0 mb-0">
+                      <strong>Temporadas:</strong> {this.state.detalle.number_of_seasons}
+                    </p>
+                  </React.Fragment>
+                )}
 
-                  <p className="mt-0 seasons">
-                    <strong>Temporadas:</strong>{" "}
-                    {this.state.detalle.number_of_seasons}
-                  </p>
-                </React.Fragment>
-              )}
+                <p className="mt-0 mb-0">
+                  <strong>Género:</strong>{" "}
+                  {this.state.detalle.genres && this.state.detalle.genres.length > 0
+                    ? this.state.detalle.genres[0].name
+                    : "Sin género"}
+                </p>
 
-              <p className="mt-0 mb-0">
-                <strong>Género:</strong>{" "}
-                {this.state.detalle.genres && this.state.detalle.genres.length > 0 
-                  ? this.state.detalle.genres[0].name 
-                  : "Sin género"}
-              </p>
+              </section>
+
+              <img
+                className="col-md-6"
+                src={`https://image.tmdb.org/t/p/w500${this.state.detalle.poster_path}`}
+                alt={this.state.detalle.title || this.state.detalle.name}
+              />
 
             </section>
 
-            <img
-              className="col-md-6"
-              src={`https://image.tmdb.org/t/p/w500${this.state.detalle.poster_path}`}
-              alt={this.state.detalle.title || this.state.detalle.name}
-            />
+            {cookies.get("userLogged") ? (
+              <button
+                onClick={() => this.ponerFavorito()}
+                className="btn btn-primary mt-3"
+              >
+                {this.state.esFavorito ? "Sacar de favoritos" : "Agregar a favoritos"}
+              </button>
+            ) : null}
 
-          </section>
+          </React.Fragment>
 
-          { cookies.get("userLogged") ? (
-            <button onClick={() => this.ponerFavorito()} className="btn btn-primary mt-3">
-              {this.state.esFavorito ? "Sacar de favoritos" : "Agregar a favoritos"}
-            </button>
-          ) : null }
+        )
 
-        </React.Fragment>
       )}
 
     </div>
   );
 }
-}
 
+} 
 export default Detalle;

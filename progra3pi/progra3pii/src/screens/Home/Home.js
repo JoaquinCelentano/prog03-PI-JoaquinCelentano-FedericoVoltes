@@ -10,69 +10,72 @@ class Home extends Component {
     super(props);
     this.state = {
       populares: [],
-      series: []
+      series: [],
+      CargandoPopulares: true,
+      CargandoSeries: true
+
     };
   }
 
   componentDidMount() {
 
-    // peliculas populares
     fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`)
       .then(res => res.json())
       .then(data => {
-        this.setState({ populares: data.results });
+        this.setState({ populares: data.results, CargandoPopulares: false });
       })
       .catch(err => console.log(err));
 
-    // peliculas en cartel
     fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}`)
       .then(res => res.json())
       .then(data => {
-        this.setState({ series: data.results });
+        this.setState({ series: data.results, CargandoSeries: false });
       })
       .catch(err => console.log(err));
   }
 
-  render() {
+   render() {
     return (
       <div className="container">
 
-
-        
-
-        
-        <h2 className="alert alert-primary">Películas más populares</h2>
         <Filter />
+
+        <h2 className="alert alert-primary">Películas más populares</h2>
 
         <section className="row cards">
 
-          {this.state.populares.map((movie, i) => {
-            if (i < 4) {
-              return <MovieCard key={movie.title + i} data={movie} tipo="movie"/>
-            }
-            return null;
-          })}
+          {this.state.loadingPopulares ? (
+            <p className="alert alert-info">Cargando...</p>
+          ) : (
+            this.state.populares.map((movie, i) => {
+              if (i < 4) {
+                return <MovieCard key={movie.id} data={movie} tipo="movie" />
+              }
+              return null;
+            })
+          )}
 
         </section>
 
         <a href="/movies" className="btn btn-outline-primary mb-4">
           Ver todas
         </a>
-        
 
 
-
-       
-        <h2 className="alert alert-warning">Series mas populares</h2>
+        <h2 className="alert alert-warning">Series más populares</h2>
 
         <section className="row cards">
 
-          {this.state.series.map((serie, i) => {
-            if (i < 4) {
-              return <MovieCard key={serie.title + i} data={serie} tipo="tv" />
-            }
-            return null;
-          })}
+          {this.state.loadingSeries ? (
+            <p className="alert alert-info">Cargando...</p>
+          ) : (
+            this.state.series.map((serie, i) => {
+              if (i < 4) {
+                return <MovieCard key={serie.id} data={serie} tipo="tv" />
+              }
+              return null;
+            })
+          )}
 
         </section>
 
