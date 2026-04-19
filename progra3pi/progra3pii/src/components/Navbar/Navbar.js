@@ -6,7 +6,7 @@ const cookies = new Cookies();
 
 class Navbar extends Component {
   logout() {
-    cookies.remove("userLogged");
+    cookies.remove("userLogged", { path: "/" });
     this.props.history.push("/");
   }
 
@@ -20,7 +20,7 @@ class Navbar extends Component {
           <li className="nav-item">
             <Link to="/favorites" className="nav-link">Favoritas</Link>
           </li>
-          <li className="nav-item">
+          <li className="nav-item ml-auto">
             <button className="nav-link btn" onClick={() => this.logout()}>Cerrar sesión</button>
           </li>
         </React.Fragment>
@@ -39,6 +39,7 @@ class Navbar extends Component {
     }
 
     return (
+      <div className="container">
       <nav>
         <h2>Movies</h2>
 
@@ -56,6 +57,7 @@ class Navbar extends Component {
           {navLinks}
         </ul>
       </nav>
+      </div>
     );
   }
 }
