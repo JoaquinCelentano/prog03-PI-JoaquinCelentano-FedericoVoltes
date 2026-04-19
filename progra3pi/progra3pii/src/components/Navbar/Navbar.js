@@ -39,9 +39,11 @@ class Navbar extends Component {
     }
 
     return (
+
       <div className="container">
+             <h1>Movies</h1>
+
       <nav>
-        <h2>Movies</h2>
 
         <ul className="nav nav-tabs my-4">
           <li className="nav-item">

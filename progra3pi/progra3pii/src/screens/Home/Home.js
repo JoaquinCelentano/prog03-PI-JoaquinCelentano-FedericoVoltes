@@ -37,12 +37,12 @@ class Home extends Component {
     return (
       <div className="container">
 
-        <h1>UdeSA Movies</h1>
 
-        <Filter />
+        
 
         
         <h2 className="alert alert-primary">Películas más populares</h2>
+        <Filter />
 
         <section className="row cards">
 
