@@ -85,11 +85,7 @@ nav {
     width: 15%;
 }
 
-@media(min-width: 765px){
-    nav {
-        grid-template-columns: 1fr;
-    }
-}
+
 
 footer {
   background-color: #eee;
@@ -106,4 +102,36 @@ footer p {
   color: #555;
   font-size: 14px;
 }
+
+@media (max-width: 576px) {
+
+  .cards {
+    justify-content: center;
+  }
+
+  .single-card-movie,
+  .single-card-tv,
+  .single-card-people,
+  .single-card-playing,
+  .single-card-on-air {
+    width: 90%;
+    margin-bottom: 15px;
+  }
+
+  nav h2 {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .nav {
+    flex-direction: column !important;
+    align-items: center;
+  }
+
+  .search-form {
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+  }
+}
+
 
