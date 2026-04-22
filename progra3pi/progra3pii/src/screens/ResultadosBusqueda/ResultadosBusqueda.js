@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-const apiKey ='5aba41484f01b327ba117f875007574f'
 import MovieCard from "../../components/MovieCard/MovieCard";
+
+const apiKey ='5aba41484f01b327ba117f875007574f'
 
 class ResultadosBusqueda extends Component {
   constructor(props) {
