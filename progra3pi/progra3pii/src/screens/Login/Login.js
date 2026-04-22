@@ -34,9 +34,9 @@ class Login extends Component {
 
     let usersParseado = JSON.parse(usersStorage);
 
-    let usuarioEncontrado = usersParseado.find((user) => user.email === this.state.email && user.password === this.state.password);
+    let usuarioEncontrado = usersParseado.filter((user) => user.email === this.state.email && user.password === this.state.password);
 
-    if (!usuarioEncontrado) {
+    if (usuarioEncontrado.length === 0) {
       this.setState({
         error: "Credenciales inválidas"
       });

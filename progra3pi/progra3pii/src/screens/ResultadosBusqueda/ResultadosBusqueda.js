@@ -15,9 +15,8 @@ class ResultadosBusqueda extends Component {
   }
 
   componentDidMount() {
-    const query = new URLSearchParams(this.props.location.search);
-    const texto = query.get("texto");
-    const tipo = query.get("tipo");
+    const texto = this.props.match.params.texto;
+    const tipo = this.props.match.params.tipo;
 
     let endpoint = "";
 
