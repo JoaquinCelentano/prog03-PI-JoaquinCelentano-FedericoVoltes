@@ -38,7 +38,7 @@ class Home extends Component {
     return (
       <div className="container">
 
-        <Filter />
+        <Filter history={this.props.history} />
 
         <h2 className="alert alert-primary">Películas más populares</h2>
 
