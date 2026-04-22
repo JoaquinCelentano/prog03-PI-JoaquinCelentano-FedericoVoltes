@@ -22,7 +22,7 @@ class Filter extends Component {
       return;
     }
 
-    this.props.history.push(`/resultadosbusqueda?texto=${this.state.texto}&tipo=${this.state.tipo}`);
+    this.props.history.push(`/busqueda/${this.state.texto}/${this.state.tipo}`);
   }
 
   render() {
