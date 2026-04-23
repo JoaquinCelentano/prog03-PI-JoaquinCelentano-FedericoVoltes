@@ -44,7 +44,7 @@ class Home extends Component {
 
         <section className="row cards">
 
-          {this.state.loadingPopulares ? (
+          {this.state.CargandoPopulares ? (
             <p className="alert alert-info">Cargando...</p>
           ) : (
             this.state.populares.map((movie, i) => {
@@ -66,7 +66,7 @@ class Home extends Component {
 
         <section className="row cards">
 
-          {this.state.loadingSeries ? (
+          {this.state.CargandoSeries ? (
             <p className="alert alert-info">Cargando...</p>
           ) : (
             this.state.series.map((serie, i) => {
@@ -79,7 +79,7 @@ class Home extends Component {
 
         </section>
 
-        <a href="/series" className="btn btn-outline-warning">
+        <a href="/series" className="btn btn-outline-primary mb-4">
           Ver todas
         </a>
 

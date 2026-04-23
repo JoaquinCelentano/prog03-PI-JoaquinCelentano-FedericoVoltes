@@ -1,6 +1,3 @@
-// Punto 10 - Página Not Found
-// La aplicación debe mostrar una página del tipo 404 Contenido Inexistente si el usuario ingresa una url inexistente.
-
 import React from "react";
 import { Link} from "react-router-dom";
 

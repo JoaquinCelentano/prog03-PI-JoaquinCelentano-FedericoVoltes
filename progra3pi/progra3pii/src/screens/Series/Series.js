@@ -62,7 +62,7 @@ class Series extends Component {
 
         </section>
 
-        <button onClick={this.cargarMas} className="btn btn-warning">
+        <button onClick={this.cargarMas} className="btn btn-outline-primary">
           Cargar más
         </button>
 

@@ -85,7 +85,10 @@ nav {
     width: 15%;
 }
 
-
+.cardBody .btn {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
 
 footer {
   background-color: #eee;
@@ -133,5 +136,6 @@ footer p {
     row-gap: 10px;
   }
 }
+
 
 

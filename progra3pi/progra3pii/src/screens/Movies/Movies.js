@@ -61,7 +61,9 @@ class Movies extends Component {
 
         </section>
 
-        <button onClick={this.cargarMas}>Cargar más</button>
+        <button onClick={this.cargarMas} className="btn btn-outline-primary">
+          Cargar más
+        </button>
 
       </div>
     );

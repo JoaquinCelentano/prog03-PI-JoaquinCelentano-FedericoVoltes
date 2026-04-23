@@ -41,7 +41,7 @@ class Navbar extends Component {
     return (
 
       <div className="container">
-             <h1>Movies</h1>
+             <h1>DH MAX</h1>
 
       <nav>
 
