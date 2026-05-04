@@ -22,7 +22,7 @@ class Series extends Component {
         this.setState({
           series: data.results,
           pagina: this.state.pagina + 1,
-          Cargando: false   
+          Cargando: false
         });
       })
       .catch(err => console.log(err));
@@ -60,22 +60,17 @@ class Series extends Component {
 
         <h2 className="alert alert-warning">Todas las series</h2>
 
-        {/* 🔥 filtro en vivo */}
         <form className="filter-form px-0 mb-3" onSubmit={(event) => this.evitarSubmit(event)}>
           <input type="text" placeholder="Buscar dentro de la lista" value={this.state.inputBusqueda} onChange={(event) => this.controlarCambios(event)}/>
         </form>
 
         <section className="row cards all-series" id="series">
-
           {this.state.Cargando ? (
             <p className="alert alert-info">Cargando...</p> ) : ( seriesFiltradas.map((serie) => (
               <MovieCard key={serie.id} data={serie} tipo="tv" />
             ))
-
           )}
-
         </section>
-
         <button onClick={this.cargarMas} className="btn btn-outline-primary">
           Cargar más
         </button>

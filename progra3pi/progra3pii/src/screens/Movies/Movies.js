@@ -65,16 +65,13 @@ class Movies extends Component {
         </form>
 
         <section className="row cards">
-
           {this.state.Cargando ? (
             <p className="alert alert-info">Cargando...</p> ) : ( moviesFiltradas.map((movie) => (
               <MovieCard key={movie.id} data={movie} tipo="movie" />
             ))
 
           )}
-
         </section>
-
         <button onClick={this.cargarMas} className="btn btn-outline-primary">
           Cargar más
         </button>
